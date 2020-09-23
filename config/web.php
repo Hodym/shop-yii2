@@ -8,6 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'en-US',
+    'defaultRoute' => 'category/index',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -47,8 +48,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/' => 'site/index',
-                'category/<id:\d+>' => 'category/view',
+                '/' => 'category/index',
+                '/category-<id:\d+>/page-<page:\d+>' => 'category/view',
+                'category-<id:\d+>' => 'category/view',
             ],
         ],
         'mailer' => [
@@ -61,8 +63,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'supportEmail',
-                'password' => 'mypassword',
+                'username' => 'testphp022@gmail.com',
+                'password' => '***********',
                 'port' => '587',
                 'encryption' => 'tls',
             ],

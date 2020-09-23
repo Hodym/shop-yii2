@@ -1,9 +1,6 @@
 # phpstorm project files
 .idea
 
-# mailer
-/config/params.php
-
 # netbeans project files
 nbproject
 
