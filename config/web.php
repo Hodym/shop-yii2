@@ -48,6 +48,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/' => 'site/index',
+                'category/<id:\d+>' => 'category/view',
             ],
         ],
         'mailer' => [
@@ -60,8 +61,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => '******@gmail.com',
-                'password' => '********',
+                'username' => 'supportEmail',
+                'password' => 'mypassword',
                 'port' => '587',
                 'encryption' => 'tls',
             ],
