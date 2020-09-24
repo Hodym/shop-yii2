@@ -16,9 +16,9 @@ class CategoryController extends AppController
         return $this->render('index', compact('hits'));
     }
     
-    public function actionView() 
+    public function actionView($id) 
     {
-        $id = Yii::$app->request->get('id');
+        //$id = Yii::$app->request->get('id');
 
         $category = Category::findOne($id);
         
@@ -33,5 +33,22 @@ class CategoryController extends AppController
         
         $this->setMeta('E-SHOPPER | ' . $category->name, $category->keywords, $category->description);
         return $this->render('view', ['products' => $products, 'category' => $category, 'pages' => $pages,]);
+    }
+    
+    public function actionSearch() 
+    {
+        $q = trim(Yii::$app->request->get('q'));
+        
+        $this->setMeta('E-SHOPPER | Search: ' . $q);
+        
+        if (!$q){
+            return $this->render('search');
+        }
+        $query = Product::find()->where(['like', 'name', $q]);
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
+        $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+        
+        return $this->render('search', ['products' => $products, 'pages' => $pages, 'q' => $q,]);
     }
 }
