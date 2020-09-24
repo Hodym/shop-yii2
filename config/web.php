@@ -51,6 +51,7 @@ $config = [
                 '/' => 'category/index',
                 '/category-<id:\d+>/page-<page:\d+>' => 'category/view',
                 'category-<id:\d+>' => 'category/view',
+                'product-<id:\d+>' => 'product/view',
             ],
         ],
         'mailer' => [
@@ -63,8 +64,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'testphp022@gmail.com',
-                'password' => '***********',
+                'username' => 'myEmail',
+                'password' => 'myPassword',
                 'port' => '587',
                 'encryption' => 'tls',
             ],

@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 <section id="slider"><!--slider-->
@@ -119,7 +120,7 @@ use yii\helpers\Html;
                                 <div class="productinfo text-center">
                                     <?= Html::img("@web/images/products/{$hit->img}", ['alt' => $hit->name]) ?>
                                     <h2>$<?= $hit->price ?></h2>
-                                    <p><?= $hit->name ?></p>
+                                    <p><a href="<?= Url::to(['product/view', 'id' => $hit->id]) ?>"><?= $hit->name ?></a></p>
                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                 </div>
                                 <?php if ($hit->new): ?>
@@ -128,13 +129,6 @@ use yii\helpers\Html;
                                 <?php if ($hit->sale): ?>
                                     <?= Html::img("@web/images/home/sale.png", ['alt' => 'Распродажа', 'class' => 'new']) ?>
                                 <?php endif; ?>
-                                <!--<div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$<? /*= $hit->price*/ ?></h2>
-                                        <p><? /*= $hit->name*/ ?></p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
-                                </div>-->
                             </div>
                             <div class="choose">
                                 <ul class="nav nav-pills nav-justified">
