@@ -31,6 +31,3 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
-
-# ignore generated files
-/config/params.php

@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -24,9 +23,9 @@ ltAppAsset::register($this)
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php $this->registerCsrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+        <title>Админка | <?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-    
+
         <link rel="shortcut icon" href="images/ico/favicon.ico">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -35,7 +34,7 @@ ltAppAsset::register($this)
     </head><!--/head-->
 
     <body>
-    <?php $this->beginBody() ?>
+        <?php $this->beginBody() ?>
         <header id="header"><!--header-->
             <div class="header_top"><!--header_top-->
                 <div class="container">
@@ -97,7 +96,7 @@ ltAppAsset::register($this)
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <?php if(!Yii::$app->user->isGuest): ?>
+                                    <?php if (!Yii::$app->user->isGuest): ?>
                                         <li><a href="<?= Url::to(['/user/default/logout']) ?>"><i class="fa fa-user"></i><?= Yii::$app->user->identity['username'] ?> (Logout)</a></li>
                                     <?php endif; ?>
                                     <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
@@ -125,30 +124,27 @@ ltAppAsset::register($this)
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                    <li><a href="index.html" class="active">Home</a></li>
-                                    <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                                    <li><a href="<?= Url::to(['/admin']) ?>" class="active">Home</a></li>
+                                    <li class="dropdown"><a href="#">Category<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a href="shop.html">Products</a></li>
-                                            <li><a href="product-details.html">Product Details</a></li> 
-                                            <li><a href="checkout.html">Checkout</a></li> 
-                                            <li><a href="cart.html">Cart</a></li> 
-                                            <li><a href="login.html">Login</a></li> 
+                                            <li><a href="<?= Url::to(['category/index']) ?>">List category</a></li>
+                                            <li><a href="<?= Url::to(['category/create']) ?>">Add category</a></li> 
                                         </ul>
                                     </li> 
-                                    <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                    <li class="dropdown"><a href="#">Products<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a href="blog.html">Blog List</a></li>
-                                            <li><a href="blog-single.html">Blog Single</a></li>
+                                            <li><a href="<?= Url::to(['product/index']) ?>">List products</a></li>
+                                            <li><a href="<?= Url::to(['category/create']) ?>">Add products</a></li>
                                         </ul>
                                     </li> 
-                                    <li><a href="404.html">404</a></li>
-                                    <li><a href="contact-us.html">Contact</a></li>
+                                    <!-- <li><a href="404.html">404</a></li>
+                                    <li><a href="contact-us.html">Contact</a></li> -->
                                 </ul>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="search_box pull-right">
-                                <form method="get" action="<?= Url::to(['category/search'])?>">
+                                <form method="get" action="<?= Url::to(['category/search']) ?>">
                                     <input type="text" placeholder="Search" name="q"/>
                                 </form>
                             </div>
@@ -158,7 +154,16 @@ ltAppAsset::register($this)
             </div><!--/header-bottom-->
         </header><!--/header-->
 
-    <?= $content; ?>
+        <div class="container">
+            <?php if (Yii::$app->session->hasFlash('success')) :?>
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong><?php echo Yii::$app->session->getFlash('success'); ?></strong>
+            </div>
+            <?php endif; ?>
+            
+            <?= $content; ?>
+        </div>
 
         <footer id="footer"><!--Footer-->
             <div class="footer-top">
@@ -317,20 +322,8 @@ ltAppAsset::register($this)
             </div>
 
         </footer><!--/Footer-->
-        
-        <?php 
-            Modal::begin([
-                'header' => '<h2>Cart</h2>',
-                'id' => 'cart',
-                'size' => 'modal-lg',
-                'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
-                             <a href="' . Url::to(['cart/view']) . '" class="btn btn-success" >Оформить заказ</a>
-                             <button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>'
-            ]);
-            Modal::end();
-        ?> 
-        
-    <?php $this->endBody() ?>
+
+        <?php $this->endBody() ?>
     </body>
 </html>
 <?php $this->endPage() ?>

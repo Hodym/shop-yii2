@@ -17,6 +17,11 @@ $config = [
         'user' => [
             'class' => 'app\modules\user\Module',
         ],
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+            'layout' => 'admin',
+            'defaultRoute' => 'order/index',
+        ],
     ],
     'components' => [
         'request' => [
@@ -30,6 +35,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => '/user/default/login',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -65,8 +71,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'myEmail',
-                'password' => 'myPassword',
+                'username' => 'testphp022@gmail.com',
+                'password' => '***',
                 'port' => '587',
                 'encryption' => 'tls',
             ],
