@@ -6,6 +6,8 @@ use Yii;
 use app\models\Product;
 use app\controllers\AppController;
 use app\models\Cart;
+use app\models\Order;
+use app\models\OrderItems;
 
 class CartController extends AppController 
 {
@@ -73,11 +75,11 @@ class CartController extends AppController
                 Yii::$app->session->setFlash('success', 'Ваш заказ принят. Менеджер вскоре свяжется с Вами в ближайшее время');
 
                 //Отправка почты
-                Yii::$app->mailer->compose('order', ['session' => $session])
+                /*Yii::$app->mailer->compose('order', ['session' => $session])
                         ->setFrom(['vodolley.1992@mail.ru' => 'yii2.loc'])
                         ->setTo($order->email)
                         ->setSubject('Заказ')
-                        ->send();
+                        ->send();*/
 
 
                 $session->remove('cart');
@@ -88,7 +90,7 @@ class CartController extends AppController
                 Yii::$app->session->setFlash('error', 'Ошибка офорления заказа');
             }
         }
-        return $this->render('view', compact('session', 'order'));
+        return $this->render('view', ['session' => $session, 'order' => $order,]);
     }
 
     protected function saveOrderItems($items, $order_id) {
@@ -98,8 +100,8 @@ class CartController extends AppController
             $order_items->product_id = $id;
             $order_items->name = $item['name'];
             $order_items->price = $item['price'];
-            $order_items->qty_Item = $item['qty'];
-            $order_items->sum_Item = $item['qty'] * $item['price'];
+            $order_items->qty_item = $item['qty'];
+            $order_items->sum_item = $item['qty'] * $item['price'];
             $order_items->save();
         }
     }
