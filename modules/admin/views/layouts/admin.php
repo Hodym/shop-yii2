@@ -134,7 +134,7 @@ ltAppAsset::register($this)
                                     <li class="dropdown"><a href="#">Products<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
                                             <li><a href="<?= Url::to(['product/index']) ?>">List products</a></li>
-                                            <li><a href="<?= Url::to(['category/create']) ?>">Add products</a></li>
+                                            <li><a href="<?= Url::to(['product/create']) ?>">Add products</a></li>
                                         </ul>
                                     </li> 
                                     <!-- <li><a href="404.html">404</a></li>
