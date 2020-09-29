@@ -3,6 +3,8 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 ?>
 <section>
     <div class="container">
@@ -108,13 +110,13 @@ $gallery = $product->getImages();
                     </div>
                 </div><!--/product-details-->             
 
-                <!--<div class="category-tab shop-details-tab">--><!--category-tab-->
-                    <!--<div class="col-sm-12">
+                <div class="category-tab shop-details-tab"><!--category-tab-->
+                    <div class="col-sm-12">
                         <ul class="nav nav-tabs">
                             <li><a href="#details" data-toggle="tab">Details</a></li>
                             <li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
                             <li><a href="#tag" data-toggle="tab">Tag</a></li>
-                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews (<?= $pages->totalCount ?>)</a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -273,30 +275,48 @@ $gallery = $product->getImages();
 
                         <div class="tab-pane fade active in" id="reviews" >
                             <div class="col-sm-12">
-                                <ul>
-                                    <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <?php if(!empty($comments)): ?>
+                                    <?php $i = 0; foreach($comments as $comment): ?>
+                                        <ul>
+                                            <li><a href=""><i class="fa fa-user"></i><?= $comment->username ?></a></li>
+                                            <li><a href=""><i class="fa fa-clock-o"></i><?php echo date('H:i', $comment->created_at); ?> PM</a></li>
+                                            <li><a href=""><i class="fa fa-calendar-o"></i><?php echo date('d M Y', $comment->created_at); //31 DEC 2014?></a></li>
+                                        </ul>
+                                        <p><?= $comment->reviews ?></p><br>
+                                        <?php $i++; if($i % 3 == 0): ?>
+                                            <div class="clearfix"></div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <div class="clearfix"></div>
+                                    <?php echo LinkPager::widget(['pagination' => $pages,]); ?>
+                                <?php else: ?>
+                                    <h2>Not comments...</h2>
+                                <?php endif; ?>
                                 <p><b>Write Your Review</b></p>
-
-                                <form action="#">
+                                <?php $form = ActiveForm::begin(); ?>
                                     <span>
-                                        <input type="text" placeholder="Your Name"/>
-                                        <input type="email" placeholder="Email Address"/>
+                                        <?= $form->field($commentForm, 'username')->textInput([
+                                            'placeholder' => 'Your Name', 
+                                            'value' => $userData['name'],
+                                            ])->label(false) ?>
+                                        <?= $form->field($commentForm, 'email')->textInput([
+                                            'placeholder' => 'Email Address',
+                                            'value' => $userData['email'],
+                                            ])->label(false) ?>
                                     </span>
-                                    <textarea name="" ></textarea>
+                                    <?= $form->field($commentForm, 'reviews')->textarea(['placeholder' => 'Write Message'])->label(false) ?>
+                                    
                                     <b>Rating: </b> <img src="/images/product-details/rating.png" alt="" />
-                                    <button type="button" class="btn btn-default pull-right">
-                                        Submit
-                                    </button>
-                                </form>
+                                    
+                                    <?= Html::submitButton('Submit', ['class' => 'btn btn-default pull-right']) ?>
+                                    
+                                <?php ActiveForm::end(); ?>
                             </div>
                         </div>
+                        
 
                     </div>
-                </div>--><!--/category-tab-->
+                </div><!--/category-tab-->
 
                     <div class="recommended_items"><!--recommended_items-->
                         <h2 class="title text-center">recommended items</h2>

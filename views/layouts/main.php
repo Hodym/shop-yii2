@@ -97,13 +97,16 @@ ltAppAsset::register($this)
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <?php if(!Yii::$app->user->isGuest): ?>
-                                        <li><a href="<?= Url::to(['/user/default/logout']) ?>"><i class="fa fa-user"></i><?= Yii::$app->user->identity['username'] ?> (Logout)</a></li>
-                                    <?php endif; ?>
                                     <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="#" onclick="return getCart()"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                    <li><a href="<?= Url::to(['/admin']) ?>"><i class="fa fa-lock"></i> Login</a></li>
+                                    <?php if(Yii::$app->user->isGuest): ?>
+                                        <li><a href="#"><i class="fa fa-user"></i>Account</a></li>
+                                        <li><a href="<?= Url::to(['/user/default/login']) ?>"><i class="fa fa-lock"></i>Login</a></li>
+                                    <?php else: ?>
+                                        <li><a href="#"><i class="fa fa-user"></i>Account</a></li>
+                                        <li><a href="<?= Url::to(['/user/default/logout']) ?>"><i class="fa fa-lock"></i><?= Yii::$app->user->identity['username'] ?> (Logout)</a></li>
+                                    <?php endif; ?>   
                                 </ul>
                             </div>
                         </div>
@@ -125,7 +128,7 @@ ltAppAsset::register($this)
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                    <li><a href="index.html" class="active">Home</a></li>
+                                    <li><a href="<?= Url::home() ?>" class="active">Home</a></li>
                                     <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
                                             <li><a href="shop.html">Products</a></li>
@@ -158,7 +161,16 @@ ltAppAsset::register($this)
             </div><!--/header-bottom-->
         </header><!--/header-->
 
-    <?= $content; ?>
+        <div class="container">
+            <?php if (Yii::$app->session->hasFlash('success')) :?>
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong><?php echo Yii::$app->session->getFlash('success'); ?></strong>
+            </div>
+            <?php endif; ?>
+            
+            <?= $content; ?>
+        </div>
 
         <footer id="footer"><!--Footer-->
             <div class="footer-top">

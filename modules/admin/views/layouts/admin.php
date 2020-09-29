@@ -136,7 +136,8 @@ ltAppAsset::register($this)
                                             <li><a href="<?= Url::to(['product/index']) ?>">List products</a></li>
                                             <li><a href="<?= Url::to(['product/create']) ?>">Add products</a></li>
                                         </ul>
-                                    </li> 
+                                    </li>
+                                    <li><a href="<?= Url::to(['comment/index']) ?>" class="default">Comments</a></li>
                                     <!-- <li><a href="404.html">404</a></li>
                                     <li><a href="contact-us.html">Contact</a></li> -->
                                 </ul>

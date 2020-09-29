@@ -29,6 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     If you forgot your password you can <?= Html::a('reset it', ['/user/default/request-password-reset']) ?>.
                     <br>
                     Need new verification email? <?= Html::a('Resend', ['/user/default/resend-verification-email']) ?>
+                    <br>
+                    New User Signup! <?= Html::a('Signup', ['/user/default/signup']) ?>
                 </div>
 
                 <div class="form-group">

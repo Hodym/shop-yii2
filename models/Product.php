@@ -76,4 +76,8 @@ class Product extends ActiveRecord
     public function getCategory() {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
+    
+    public function getComments() {
+        return $this->hasMany(Comment::className(), ['product_id' => 'id']);
+    }
 }

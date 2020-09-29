@@ -22,6 +22,9 @@ $config = [
             'layout' => 'admin',
             'defaultRoute' => 'order/index',
         ],
+        'comment' => [
+            'class' => 'app\modules\comment\Module',
+        ],
         'yii2images' => [
             'class' => 'rico\yii2images\Module',
             //be sure, that permissions ok 
